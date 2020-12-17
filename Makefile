@@ -17,7 +17,7 @@ UNIT_TESTS_DIR = $(BIN_DIR)/unit_tests
 
 CFLAGS = -I$(TOP_DIR)/$(HEADERS_DIR)/
 
-files = expression_tree expression expression_node expression_token operator
+files = expression_tree expression expression_node expression_token operator list
 objs = $(patsubst %,%.o,$(files))
 tests = $(patsubst %,%_test,$(files))
 
@@ -31,8 +31,11 @@ run: interpreter
 
 # obj file recipes
 
-main.o: $(SRC_DIR)/main.c $(HEADERS_DIR)/expression_tree.h
+main.o: $(SRC_DIR)/main.c $(HEADERS_DIR)/expression_tree.h $(HEADERS_DIR)/list.h
 	cc -c $(CFLAGS) $(SRC_DIR)/main.c -o $(OBJS_DIR)/main.o
+
+list.o: $(SRC_DIR)/list.c $(HEADERS_DIR)/list.h
+	cc -c $(CFLAGS) $(SRC_DIR)/list.c -o $(OBJS_DIR)/list.o
 
 expression_tree.o: $(SRC_DIR)/expression_tree.c $(HEADERS_DIR)/expression_tree.h
 	cc -c $(CFLAGS) $(SRC_DIR)/expression_tree.c -o $(OBJS_DIR)/expression_tree.o
@@ -53,6 +56,10 @@ operator.o: $(SRC_DIR)/operator.c $(HEADERS_DIR)/operator.h
 
 test: mkobjdir mkbindir mktestobjdir mktestbindir $(objs) $(tests)
 	$(patsubst %,./$(UNIT_TESTS_DIR)/% &&,$(tests)) :
+
+list_test: $(TESTS_DIR)/list_test.c
+	cc -c $(CFLAGS) $(TESTS_DIR)/list_test.c -o $(TEST_OBJS_DIR)/list_test.o
+	cc -o $(UNIT_TESTS_DIR)/list_test $(TEST_OBJS_DIR)/list_test.o $(patsubst %,$(OBJS_DIR)/%,$(objs))
 
 expression_tree_test: $(TESTS_DIR)/expression_tree_test.c
 	cc -c $(CFLAGS) $(TESTS_DIR)/expression_tree_test.c -o $(TEST_OBJS_DIR)/expression_tree_test.o
