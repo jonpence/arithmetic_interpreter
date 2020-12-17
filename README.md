@@ -1,6 +1,6 @@
 # arithmetic interpreter
 
-This project defines a CLI interpreter which can evalute simple arithmetic expressions.
+This project implements a CLI interpreter which can evalute simple arithmetic expressions.
 
 ---
 Table of Contents
