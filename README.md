@@ -25,6 +25,8 @@ In the future, I'd like to:
 * Do more rigorous testing
 * Comment the code
 * Make documentation
+* Increase value ceiling
+* Implement floating point arithmetic
 * Add QoL improvements, like saving expressions in a table, being able to print them out, hitting the up arrow to paste the most recent expression into the buffer, etc.
 * Extend operations to add exponents, parenthetical precedence, logarithms, symbol bindings, other functions
 * Refactor tokenization to utilize regular expressions/context free grammars (which I'd like to implement myself)
