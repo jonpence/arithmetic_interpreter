@@ -12,7 +12,7 @@ Expression_Node* recursively_parse(Expression* expr) {
     if (get_head(expr) == get_tail(expr))
         return get_head(expr);
 
-    Operator asc_priorities[] = { Subtraction, Addition, Multiplication, Division };
+    Operator asc_priorities[] = { Subtraction, Addition, Division, Multiplication };
     for (size_t i = 0; i < NUM_OPS - 1; i++) {
         set_ptr(expr, get_tail(expr));
         do {
