@@ -7,8 +7,7 @@ Table of Contents
 
 1. [Description](#1-description)
 1. [Motivation](#2-motivation)
-1. [TODO](#3-todo)
-1. [Future](#4-future)
+1. [Development](#3-development)
 ---
 
 ## 1 Description
