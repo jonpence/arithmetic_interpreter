@@ -12,6 +12,7 @@
 
 #define BUF_SIZE 500
 
+// Command enumerates different types of valid commands that are accepted by the interpreter.
 typedef enum Command {
   NullCommand,
   Help,
@@ -22,6 +23,7 @@ typedef enum Command {
   Exit
 } Command;
 
+// tokenize_command(input) takes a string, ideally of the form <!command optparam>, then tokenizes it and returns the token.
 Command tokenize_command(char* input) {
   size_t i = 0;
   char command[BUF_SIZE];
@@ -49,17 +51,21 @@ Command tokenize_command(char* input) {
   }
 }
 
+// main() begins a loop that accepts a command/expression until the user issues an EOF character or executes the '!exit' command.
 int main() {
   char input[BUF_SIZE];
   Expression* expr = NULL;
   Expression_Tree* expr_tree = NULL;
 
+  // Hold valid expressions which have been entered into this list.
   List* expr_tree_table = init_list(2);
 
   printf("Press Ctrl+D or enter '!exit' to exit.\nEnter '!help' for a list of commands \n\n> ");
   while (fgets(input, BUF_SIZE, stdin)) {
+    // If input is empty, just do nothing.
     if (input[0] == '\n') {
       ;
+    // If an input begins with !, then it ought to be interpreted as a command, and not an expression.
     } else if (input[0] == '!') {
       switch(tokenize_command(input)) {
         case Help:
@@ -89,8 +95,9 @@ int main() {
           printf("Command unrecognized.\n\n");
       }
     } else {
+      // If the input is not a command, then try to tokenize it into an expression.
       expr = tokenize_expression(input);
-
+      // Then validate that the expression makes sense (begins/ends with operands, contains no NullOperation operators).
       if (validate_semantics(expr)) {
         expr_tree = parse_expr_to_tree(expr);
         printf("Result: %d\n", get_result(expr_tree));

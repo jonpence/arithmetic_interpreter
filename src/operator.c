@@ -1,5 +1,7 @@
 #include "operator.h"
 
+// op_to_string takes an Operator enum and returns a string corresponding to the
+// operation's name in English.
 char* op_to_string(Operator op) {
   switch(op) {
     case NullOperation:
@@ -15,6 +17,8 @@ char* op_to_string(Operator op) {
   }
 }
 
+// op_to_symbol() takes an Operator enum and returns a string corresponding to
+// the symbol of the operation in arithmetic format.
 char* op_to_symbol(Operator op) {
   switch(op) {
     case NullOperation:
@@ -30,6 +34,8 @@ char* op_to_symbol(Operator op) {
   }
 }
 
+// is_null_operator() takes an Operator enum and returns an integer representing
+// the boolean case of whether or not the accepted Operator is a NullOperation.
 int is_null_operator(Operator op) {
   return op == NullOperation;
 }
