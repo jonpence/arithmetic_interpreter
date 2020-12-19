@@ -15,9 +15,9 @@ TEST_OBJS_DIR = $(OBJS_DIR)/unit_test_objs
 BIN_DIR = bin
 UNIT_TESTS_DIR = $(BIN_DIR)/unit_tests
 
-CFLAGS = -I$(TOP_DIR)/$(HEADERS_DIR)/
+CFLAGS = -I$(TOP_DIR)/$(HEADERS_DIR)
 
-files = expression_tree expression expression_node expression_token operator list
+files = expression_tree expression expression_node expression_token operator list dfa_state dfa_transition dfa_map
 objs = $(patsubst %,%.o,$(files))
 tests = $(patsubst %,%_test,$(files))
 
@@ -33,6 +33,15 @@ run: interpreter
 
 main.o: $(SRC_DIR)/main.c $(HEADERS_DIR)/expression_tree.h $(HEADERS_DIR)/list.h
 	cc -c $(CFLAGS) $(SRC_DIR)/main.c -o $(OBJS_DIR)/main.o
+
+dfa_map.o: $(SRC_DIR)/dfa_map.c $(HEADERS_DIR)/dfa_map.h
+	cc -c $(CFLAGS) $(SRC_DIR)/dfa_map.c -o $(OBJS_DIR)/dfa_map.o
+
+dfa_transition.o: $(SRC_DIR)/dfa_transition.c $(HEADERS_DIR)/dfa_transition.h
+	cc -c $(CFLAGS) $(SRC_DIR)/dfa_transition.c -o $(OBJS_DIR)/dfa_transition.o
+
+dfa_state.o: $(SRC_DIR)/dfa_state.c $(HEADERS_DIR)/dfa_state.h
+	cc -c $(CFLAGS) $(SRC_DIR)/dfa_state.c -o $(OBJS_DIR)/dfa_state.o
 
 list.o: $(SRC_DIR)/list.c $(HEADERS_DIR)/list.h
 	cc -c $(CFLAGS) $(SRC_DIR)/list.c -o $(OBJS_DIR)/list.o
@@ -56,6 +65,18 @@ operator.o: $(SRC_DIR)/operator.c $(HEADERS_DIR)/operator.h
 
 test: mkobjdir mkbindir mktestobjdir mktestbindir $(objs) $(tests)
 	$(patsubst %,./$(UNIT_TESTS_DIR)/% &&,$(tests)) :
+
+dfa_map_test: $(TESTS_DIR)/dfa_map_test.c
+	cc -c $(CFLAGS) $(TESTS_DIR)/dfa_map_test.c -o $(TEST_OBJS_DIR)/dfa_map_test.o
+	cc -o $(UNIT_TESTS_DIR)/dfa_map_test $(TEST_OBJS_DIR)/dfa_map_test.o $(patsubst %,$(OBJS_DIR)/%,$(objs))
+
+dfa_transition_test: $(TESTS_DIR)/dfa_transition_test.c
+	cc -c $(CFLAGS) $(TESTS_DIR)/dfa_transition_test.c -o $(TEST_OBJS_DIR)/dfa_transition_test.o
+	cc -o $(UNIT_TESTS_DIR)/dfa_transition_test $(TEST_OBJS_DIR)/dfa_transition_test.o $(patsubst %,$(OBJS_DIR)/%,$(objs))
+
+dfa_state_test: $(TESTS_DIR)/dfa_state_test.c
+	cc -c $(CFLAGS) $(TESTS_DIR)/dfa_state_test.c -o $(TEST_OBJS_DIR)/dfa_state_test.o
+	cc -o $(UNIT_TESTS_DIR)/dfa_state_test $(TEST_OBJS_DIR)/dfa_state_test.o $(patsubst %,$(OBJS_DIR)/%,$(objs))
 
 list_test: $(TESTS_DIR)/list_test.c
 	cc -c $(CFLAGS) $(TESTS_DIR)/list_test.c -o $(TEST_OBJS_DIR)/list_test.o
