@@ -26,8 +26,7 @@ I've been interested in language processing recently, and I got the idea in my h
 
 ### 3.2 Doing
 
-* Implement finite automata, currently finish implementing dfa_map unit tests
-* Re-format code to standard in dfa_state.h
+-
 
 ### 3.3 Done
 
