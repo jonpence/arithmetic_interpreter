@@ -22,19 +22,7 @@ I've been interested in language processing recently, and I got the idea in my h
 
 ### 3.1 TODO
 
-* Improve documentation
-* Add repasting past command when up arrow hit
-* Implement regular expressions
-* Increase value ceiling
-* Implement floating point arithmetic
-* Implement lexical analysis using regex
-* Implement context free grammars
-* Implement syntax analysis using grammars
-* Implement expression table functionality
-* Add exponentiation, parenthetical precedence, logarithms
-* Add variable binding
-* Add equation composition
-* Add function defining capabilities
+-
 
 ### 3.2 Doing
 
